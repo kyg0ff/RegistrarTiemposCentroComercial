@@ -187,9 +187,16 @@ main {
   text-transform: uppercase;
   letter-spacing: 0.03em;
   color: var(--gray-500);
+  margin-bottom: 0.125rem;
+}
+
+.panel-accion .pa-desc {
+  font-size: 0.75rem;
+  color: var(--gray-400);
   margin-bottom: 1rem;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--gray-100);
+  line-height: 1.35;
 }
 
 .panel-accion .pa-buttons {

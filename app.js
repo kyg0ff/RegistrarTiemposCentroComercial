@@ -2,32 +2,36 @@
 const TIPOS = {
   llegada_salida: {
     label: 'Llegada y Salida',
+    desc: 'Registra la llegada y salida general de vehiculos del estacionamiento',
     btnInicio: 'Llega vehiculo',
     btnFin: 'Sale vehiculo'
   },
   es_z1: {
     label: 'ES Z1',
+    desc: 'Entrada y salida de la zona 1 (exterior)',
     btnInicio: 'Entra a la zona 1',
     btnFin: 'Sale de la zona 1'
   },
   es_z2: {
     label: 'ES Z2',
+    desc: 'Entrada y salida de la zona 2 (segundo nivel)',
     btnInicio: 'Entra a la zona 2',
     btnFin: 'Sale de la zona 2'
   },
   estacionar_z1: {
     label: 'Estacionar Z1',
+    desc: 'Estacionamiento en zona 1 (exterior)',
     btnInicio: 'Vehiculo estacionado',
     btnFin: 'Vehiculo en marcha zona 1'
   },
   estacionar_z2: {
     label: 'Estacionar Z2',
+    desc: 'Estacionamiento en zona 2 (segundo nivel)',
     btnInicio: 'Vehiculo estacionado',
     btnFin: 'Vehiculo en marcha zona 2'
   }
 };
 
-const TIPO_KEYS = Object.keys(TIPOS);
 const STORE_KEY = 'parking_cronometro_registros';
 
 /* ===== STATE ===== */
@@ -70,10 +74,6 @@ const Store = {
 /* ===== UTILS ===== */
 function pad(n) {
   return String(n).padStart(2, '0');
-}
-
-function formatHHMMSS(date) {
-  return `${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
 }
 
 function formatElapsed(ms) {
@@ -185,6 +185,7 @@ function renderPanelAccion() {
   const info = TIPOS[selectedTipo];
   panel.innerHTML = `
     <div class="pa-header">${info.label}</div>
+    <p class="pa-desc">${info.desc}</p>
     <div class="pa-buttons">
       <button class="btn btn-marca-inicio btn-lg btn-marca" data-tipo="${selectedTipo}" data-evento="${info.btnInicio}">
         ${info.btnInicio}
