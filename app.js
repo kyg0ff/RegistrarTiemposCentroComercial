@@ -32,44 +32,10 @@ const TIPOS = {
   }
 };
 
-const STORE_KEY = 'parking_cronometro_registros';
-
 /* ===== STATE ===== */
 let selectedTipo = null;
-
-/* ===== STORE ===== */
-const Store = {
-  load() {
-    try {
-      const raw = localStorage.getItem(STORE_KEY);
-      if (!raw) return { counter: 1, registros: [] };
-      return JSON.parse(raw);
-    } catch {
-      return { counter: 1, registros: [] };
-    }
-  },
-
-  save(data) {
-    try {
-      localStorage.setItem(STORE_KEY, JSON.stringify(data));
-    } catch {
-      showToast('Error al guardar');
-    }
-  },
-
-  getRegistros() {
-    return this.load().registros;
-  },
-
-  addRegistro(r) {
-    const data = this.load();
-    r.id = data.counter;
-    data.counter += 1;
-    data.registros.unshift(r);
-    this.save(data);
-    return r;
-  }
-};
+let registros = [];
+let idCounter = 1;
 
 /* ===== UTILS ===== */
 function pad(n) {
@@ -141,12 +107,14 @@ function getElapsedMs() {
 
 function registrarEvento(tipo, eventoLabel) {
   const elapsed = getElapsedMs();
-  const r = Store.addRegistro({
+  const r = {
+    id: idCounter++,
     tipo: tipo,
     evento: eventoLabel,
     hora: formatElapsed(elapsed),
     elapsedMs: elapsed
-  });
+  };
+  registros.unshift(r);
   renderRegistros();
   showToast(`${eventoLabel} - ${r.hora}`);
 }
@@ -154,7 +122,6 @@ function registrarEvento(tipo, eventoLabel) {
 /* ===== RENDER ===== */
 function renderRegistros() {
   const container = document.getElementById('registros-lista');
-  const registros = Store.getRegistros();
 
   if (registros.length === 0) {
     container.innerHTML = '<p class="empty-msg">No hay registros.</p>';
@@ -222,7 +189,6 @@ function escapeCSV(val) {
 }
 
 function exportCSV() {
-  const registros = Store.getRegistros();
   if (registros.length === 0) {
     showToast('No hay datos para exportar');
     return;
@@ -253,16 +219,13 @@ function exportCSV() {
 
 /* ===== LIMPIAR TODO ===== */
 function limpiarTodo() {
-  const registros = Store.getRegistros();
   if (registros.length === 0) {
     showToast('No hay datos que eliminar');
     return;
   }
   if (!confirm('Eliminar todos los registros? Esta accion no se puede deshacer.')) return;
-  const data = Store.load();
-  data.registros = [];
-  data.counter = 1;
-  Store.save(data);
+  registros = [];
+  idCounter = 1;
   resetGlobalTimer();
   renderRegistros();
   showToast('Todos los registros eliminados');
