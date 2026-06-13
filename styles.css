@@ -306,8 +306,8 @@ main {
   font-weight: 700;
   font-family: "SF Mono", "Fira Code", "Consolas", monospace;
   color: var(--gray-800);
-  font-size: 0.85rem;
-  min-width: 68px;
+  font-size: 0.82rem;
+  min-width: 105px;
   flex-shrink: 0;
 }
 

@@ -42,13 +42,18 @@ function pad(n) {
   return String(n).padStart(2, '0');
 }
 
+function pad3(n) {
+  return String(n).padStart(3, '0');
+}
+
 function formatElapsed(ms) {
   if (ms < 0) ms = 0;
   const total = Math.floor(ms / 1000);
   const h = Math.floor(total / 3600);
   const m = Math.floor((total % 3600) / 60);
   const s = total % 60;
-  return `${pad(h)}:${pad(m)}:${pad(s)}`;
+  const millis = ms % 1000;
+  return `${pad(h)}:${pad(m)}:${pad(s)}.${pad3(millis)}`;
 }
 
 /* ===== GLOBAL TIMER ===== */
@@ -67,7 +72,7 @@ function startGlobalTimer() {
   globalInterval = setInterval(() => {
     const total = timerElapsedBefore + (Date.now() - timerStartTime);
     document.getElementById('global-timer').textContent = formatElapsed(total);
-  }, 200);
+  }, 50);
 }
 
 function stopGlobalTimer() {
