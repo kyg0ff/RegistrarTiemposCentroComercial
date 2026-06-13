@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Cronometro - Registro de Tiempos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Cronometro - Registro de Tiempos</h1>
+  </header>
+
+  <main>
+    <div class="cronometro-global">
+      <span class="cg-label">Tiempo transcurrido</span>
+      <span class="cg-timer" id="global-timer">00:00:00</span>
+      <button class="btn btn-timer-control" id="btn-timer">Iniciar</button>
+    </div>
+
+    <nav class="tipo-menu" id="tipo-menu">
+      <button class="tm-btn" data-tipo="llegada_salida">Llegada y Salida</button>
+      <button class="tm-btn" data-tipo="es_z1">ES Z1</button>
+      <button class="tm-btn" data-tipo="es_z2">ES Z2</button>
+      <button class="tm-btn" data-tipo="estacionar_z1">Estacionar Z1</button>
+      <button class="tm-btn" data-tipo="estacionar_z2">Estacionar Z2</button>
+    </nav>
+
+    <div class="contenido-columnas">
+      <section class="col-izquierda">
+        <h2 class="section-title">Registros</h2>
+        <div id="registros-lista">
+          <p class="empty-msg">No hay registros.</p>
+        </div>
+        <div class="export-area">
+          <button id="export-csv" class="btn btn-secondary">Exportar CSV</button>
+          <button id="btn-limpiar" class="btn btn-danger">Eliminar todo</button>
+        </div>
+      </section>
+
+      <section class="col-derecha">
+        <div id="panel-accion" class="panel-accion">
+          <p class="empty-msg">Selecciona un tipo de medicion arriba.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
